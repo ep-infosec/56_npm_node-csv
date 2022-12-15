@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CSV generate demo</title>
+    <script src="/lib/iife/generate/sync.js"></script>
+    <style>
+      div {
+        width: 60%;
+        margin: 5rem auto;
+        text-align: center;
+      }
+      textarea {
+        width: 100%;
+        height: 200px;
+      }
+      input {
+        margin: 1rem;
+      }
+      pre {
+        text-align: left;
+        padding: 2rem;
+        border: 1px solid black;
+      }
+    </style>  
+  </head>
+  <body>
+    <div>
+      <h1>CSV generate demo</h1>
+      <p><a href="/">back</a></p>
+      <label for="options">JSON options:</label>
+      <textarea id="options"></textarea>
+      <input id="convert" type="submit" value="convert" />
+      <pre><code id="output"></code></pre>
+      <script>
+        const convertEl = document.getElementById('convert');
+        const optionsEl = document.getElementById('options');
+        optionsEl.innerHTML = JSON.stringify({
+          "length": 10,
+          "objectMode": true
+        }, null, 2);
+        const outputEl = document.getElementById('output');
+        convertEl.onclick = (e) => {
+          const options = JSON.parse(optionsEl.value);
+          // Initialize the generator
+          const records = csv_generate_sync.generate(options)
+          outputEl.innerHTML = JSON.stringify(records, null, 2)
+        };
+      </script>
+    </div>
+  </body>
+</html> 

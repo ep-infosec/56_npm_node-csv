@@ -1,0 +1,26 @@
+{
+  "name": "csv-issues-cjs",
+  "version": "0.1.2",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "coffeescript": "^2.7.0",
+    "mocha": "^10.1.0",
+    "should": "^13.2.3"
+  },
+  "mocha": {
+    "inline-diffs": true,
+    "recursive": true,
+    "reporter": "spec",
+    "require": [
+      "should",
+      "coffeescript/register"
+    ],
+    "throw-deprecation": true,
+    "timeout": 40000
+  },
+  "scripts": {
+    "test": "mocha 'test/**/*.coffee'"
+  }
+}

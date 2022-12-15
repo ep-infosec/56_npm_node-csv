@@ -1,0 +1,30 @@
+{
+  "name": "csv-demo-cjs",
+  "version": "0.2.1",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "commonjs",
+  "private": true,
+  "devDependencies": {
+    "@types/node": "^18.8.4",
+    "coffeescript": "^2.7.0",
+    "mocha": "^10.1.0",
+    "should": "^13.2.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  },
+  "mocha": {
+    "inline-diffs": true,
+    "recursive": true,
+    "reporter": "spec",
+    "require": [
+      "should",
+      "coffeescript/register"
+    ],
+    "throw-deprecation": true,
+    "timeout": 40000
+  },
+  "scripts": {
+    "test": "mocha 'test/**/*.coffee'"
+  }
+}

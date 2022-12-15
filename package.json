@@ -1,0 +1,38 @@
+{
+  "private": true,
+  "devDependencies": {
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
+    "@commitlint/config-lerna-scopes": "^17.2.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.2",
+    "lerna": "^6.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adaltas/node-csv.git"
+  },
+  "scripts": {
+    "build": "lerna run build",
+    "postinstall": "husky install",
+    "publish": "lerna publish from-git --yes",
+    "test": "lerna run test",
+    "test:legacy": "lerna run test:legacy",
+    "version": "lerna version"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "demo/*"
+    ],
+    "nohoist": [
+      "**/browserify",
+      "**/browserify/**"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
+}

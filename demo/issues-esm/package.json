@@ -1,0 +1,28 @@
+{
+  "name": "csv-issues-esm",
+  "version": "0.0.5",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "coffeescript": "^2.7.0",
+    "dirname-filename-esm": "^1.1.1",
+    "mocha": "^10.1.0",
+    "should": "^13.2.3"
+  },
+  "mocha": {
+    "inline-diffs": true,
+    "loader": "./test/loaders/all.js",
+    "recursive": true,
+    "reporter": "spec",
+    "require": [
+      "should"
+    ],
+    "throw-deprecation": true,
+    "timeout": 40000
+  },
+  "scripts": {
+    "test": "mocha 'test/**/*.coffee'"
+  }
+}

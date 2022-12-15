@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CSV parse demo</title>
+    <!-- start-snippet{test} -->
+    <script src="/lib/iife/csv/sync.js"></script>
+    <!-- end-snippet{test} -->
+    <style>
+      div {
+        width: 60%;
+        margin: 5rem auto;
+        text-align: center;
+      }
+      textarea {
+        width: 100%;
+        height: 200px;
+      }
+      input {
+        margin: 1rem;
+      }
+      pre {
+        text-align: left;
+        padding: 2rem;
+        border: 1px solid black;
+      }
+    </style>  
+  </head>
+  <body>
+    <div>
+      <h1>CSV demo</h1>
+      <p><a href="/">back</a></p>
+      <label for="generateOptions">Generate options:</label>
+      <textarea id="generateOptions"></textarea>
+      <label for="parseOptions">Parse options:</label>
+      <textarea id="parseOptions"></textarea>
+      <label for="transformOptions">Transform handler:</label>
+      <textarea id="transformOptions"></textarea>
+      <label for="stringifyOptions">Stringify options:</label>
+      <textarea id="stringifyOptions"></textarea>
+      <input id="run" type="submit" value="run" />
+      <pre><code id="output"></code></pre>
+      <script type="module">
+        const runEl = document.getElementById('run');
+        const generateOptionsEl = document.getElementById('generateOptions');
+        generateOptionsEl.innerHTML = JSON.stringify({
+          delimiter: '|',
+          length: 10
+        }, null, 2);
+        const parseOptionsEl = document.getElementById('parseOptions');
+        parseOptionsEl.innerHTML = JSON.stringify({
+          delimiter: '|'
+        }, null, 2);
+        const transformOptionsEl = document.getElementById('transformOptions');
+        transformOptionsEl.innerHTML = [
+          'function(record){',
+          '  return record;',
+          '}'
+        ].join('\n');
+        const stringifyOptionsEl = document.getElementById('stringifyOptions');
+        stringifyOptionsEl.innerHTML = JSON.stringify({
+          quoted: true
+        }, null, 2);
+        const outputEl = document.getElementById('output');
+        runEl.onclick = (e) => {
+          try{
+            const generateOptions = JSON.parse(generateOptionsEl.value);
+            const parseOptions = JSON.parse(parseOptionsEl.value);
+            const transform = {};
+            eval(`transform.handler = ${transformOptionsEl.value}`);
+            const stringifyOptions = JSON.parse(stringifyOptionsEl.value);
+            // Run the pipeline
+            const input = csv_sync.generate(generateOptions);
+            const rawRecords = csv_sync.parse(input, parseOptions);
+            const refinedRecords = csv_sync.transform(rawRecords, transform.handler);
+            const output = csv_sync.stringify(refinedRecords, stringifyOptions);
+            outputEl.innerHTML = output;
+          }catch(err){
+            outputEl.innerHTML = 'Error: ' + err.message;
+          }
+        };
+      </script>
+    </div>
+  </body>
+</html> 
